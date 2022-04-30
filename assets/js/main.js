@@ -4,188 +4,170 @@
 	License: pixelarity.com/license
 */
 
-(function($) {
+(function ($) {
+    var $window = $(window),
+        $body = $("body"),
+        $header = $("#header");
 
-	var	$window = $(window),
-		$body = $('body');
+    /**
+     * Applies parallax scrolling to an element's background image.
+     * @return {jQuery} jQuery object.
+     */
+    $.fn._parallax =
+        browser.name == "ie" || browser.name == "edge" || browser.mobile
+            ? function () {
+                  return $(this);
+              }
+            : function (intensity) {
+                  var $window = $(window),
+                      $this = $(this);
 
-	/**
-	 * Applies parallax scrolling to an element's background image.
-	 * @return {jQuery} jQuery object.
-	 */
-	$.fn._parallax = (browser.name == 'ie' || browser.name == 'edge' || browser.mobile) ? function() { return $(this) } : function(intensity) {
+                  if (this.length == 0 || intensity === 0) return $this;
 
-		var	$window = $(window),
-			$this = $(this);
+                  if (this.length > 1) {
+                      for (var i = 0; i < this.length; i++)
+                          $(this[i])._parallax(intensity);
 
-		if (this.length == 0 || intensity === 0)
-			return $this;
+                      return $this;
+                  }
 
-		if (this.length > 1) {
+                  if (!intensity) intensity = 0.25;
 
-			for (var i=0; i < this.length; i++)
-				$(this[i])._parallax(intensity);
+                  $this.each(function () {
+                      var $t = $(this),
+                          on,
+                          off;
 
-			return $this;
+                      on = function () {
+                          $t.css(
+                              "background-position",
+                              "center 100%, center 100%, center 0px"
+                          );
 
-		}
+                          $window.on("scroll._parallax", function () {
+                              var pos =
+                                  parseInt($window.scrollTop()) -
+                                  parseInt($t.position().top);
 
-		if (!intensity)
-			intensity = 0.25;
+                              $t.css(
+                                  "background-position",
+                                  "center " + pos * (-1 * intensity) + "px"
+                              );
+                          });
+                      };
 
-		$this.each(function() {
+                      off = function () {
+                          $t.css("background-position", "");
 
-			var $t = $(this),
-				on, off;
+                          $window.off("scroll._parallax");
+                      };
 
-			on = function() {
+                      breakpoints.on("<=medium", off);
+                      breakpoints.on(">medium", on);
+                  });
 
-				$t.css('background-position', 'center 100%, center 100%, center 0px');
+                  $window
+                      .off("load._parallax resize._parallax")
+                      .on("load._parallax resize._parallax", function () {
+                          $window.trigger("scroll");
+                      });
 
-				$window
-					.on('scroll._parallax', function() {
+                  return $(this);
+              };
 
-						var pos = parseInt($window.scrollTop()) - parseInt($t.position().top);
+    // Breakpoints.
+    breakpoints({
+        xlarge: ["1281px", "1680px"],
+        large: ["981px", "1280px"],
+        medium: ["737px", "980px"],
+        small: ["481px", "736px"],
+        xsmall: ["361px", "480px"],
+        xxsmall: [null, "360px"]
+    });
 
-						$t.css('background-position', 'center ' + (pos * (-1 * intensity)) + 'px');
+    // Play initial animations on page load.
+    $window.on("load", function () {
+        window.setTimeout(function () {
+            $body.removeClass("is-preload");
+        }, 100);
+    });
 
-					});
+    // Scrolly.
+    $(".scrolly").scrolly({
+        offset: function () {
+            return $header.height() - 5;
+        }
+    });
 
-			};
+    // Body.
+    $body._parallax(-0.7);
 
-			off = function() {
+    // Menu.
+    var $menu = $("#menu");
 
-				$t
-					.css('background-position', '');
+    $menu._locked = false;
 
-				$window
-					.off('scroll._parallax');
+    $menu._lock = function () {
+        if ($menu._locked) return false;
 
-			};
+        $menu._locked = true;
 
-			breakpoints.on('<=medium', off);
-			breakpoints.on('>medium', on);
+        window.setTimeout(function () {
+            $menu._locked = false;
+        }, 350);
 
-		});
+        return true;
+    };
 
-		$window
-			.off('load._parallax resize._parallax')
-			.on('load._parallax resize._parallax', function() {
-				$window.trigger('scroll');
-			});
+    $menu._show = function () {
+        if ($menu._lock()) $body.addClass("is-menu-visible");
+    };
 
-		return $(this);
+    $menu._hide = function () {
+        if ($menu._lock()) $body.removeClass("is-menu-visible");
+    };
 
-	};
+    $menu._toggle = function () {
+        if ($menu._lock()) $body.toggleClass("is-menu-visible");
+    };
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:   [ '1281px',  '1680px' ],
-			large:    [ '981px',   '1280px' ],
-			medium:   [ '737px',   '980px'  ],
-			small:    [ '481px',   '736px'  ],
-			xsmall:   [ '361px',   '480px'  ],
-			xxsmall:  [ null,      '360px'  ]
-		});
+    $menu
+        .appendTo($body)
+        .on("click", function (event) {
+            event.stopPropagation();
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+            // Hide.
+            $menu._hide();
+        })
+        .find(".inner")
+        .on("click", function (event) {
+            event.stopPropagation();
+        })
+        .on("click", "a", function (event) {
+            var href = $(this).attr("href");
 
-	// Body.
-		$body._parallax(-0.7);
+            event.preventDefault();
+            event.stopPropagation();
 
-	// Menu.
-		var $menu = $('#menu');
+            // Hide.
+            $menu._hide();
 
-		$menu._locked = false;
+            // Redirect.
+            window.setTimeout(function () {
+                window.location.href = href;
+            }, 350);
+        });
 
-		$menu._lock = function() {
+    $body
+        .on("click", 'a[href="#menu"]', function (event) {
+            event.stopPropagation();
+            event.preventDefault();
 
-			if ($menu._locked)
-				return false;
-
-			$menu._locked = true;
-
-			window.setTimeout(function() {
-				$menu._locked = false;
-			}, 350);
-
-			return true;
-
-		};
-
-		$menu._show = function() {
-
-			if ($menu._lock())
-				$body.addClass('is-menu-visible');
-
-		};
-
-		$menu._hide = function() {
-
-			if ($menu._lock())
-				$body.removeClass('is-menu-visible');
-
-		};
-
-		$menu._toggle = function() {
-
-			if ($menu._lock())
-				$body.toggleClass('is-menu-visible');
-
-		};
-
-		$menu
-			.appendTo($body)
-			.on('click', function(event) {
-
-				event.stopPropagation();
-
-				// Hide.
-					$menu._hide();
-
-			})
-			.find('.inner')
-				.on('click', function(event) {
-					event.stopPropagation();
-				})
-				.on('click', 'a', function(event) {
-
-					var href = $(this).attr('href');
-
-					event.preventDefault();
-					event.stopPropagation();
-
-					// Hide.
-						$menu._hide();
-
-					// Redirect.
-						window.setTimeout(function() {
-							window.location.href = href;
-						}, 350);
-
-				});
-
-		$body
-			.on('click', 'a[href="#menu"]', function(event) {
-
-				event.stopPropagation();
-				event.preventDefault();
-
-				// Toggle.
-					$menu._toggle();
-
-			})
-			.on('keydown', function(event) {
-
-				// Hide on escape.
-					if (event.keyCode == 27)
-						$menu._hide();
-
-			});
-
+            // Toggle.
+            $menu._toggle();
+        })
+        .on("keydown", function (event) {
+            // Hide on escape.
+            if (event.keyCode == 27) $menu._hide();
+        });
 })(jQuery);

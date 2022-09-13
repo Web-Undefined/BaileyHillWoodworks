@@ -3069,7 +3069,7 @@ body.is-menu-visible #menu .inner {
 
 #banner {
     position: relative;
-    background-image: url("../../images/woodgrain.jpg");
+    background-image: url("../../images/woodgrain1.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -3256,6 +3256,12 @@ body.is-preload #banner footer {
         -webkit-transform: scale(0.985);
         -ms-transform: scale(0.985);
         transform: scale(0.985);
+    }
+
+    .contact-form {
+        padding: 1em;
+        background-image: url("images/overlay.png"),
+            url("../../images/deepGreen.jfif");
     }
 }
 
@@ -3462,7 +3468,8 @@ body.is-preload #banner footer {
     #main .cta {
         padding: 4em 1.5em 2em 1.5em;
         background-color: #6a707c;
-        background-image: url("images/overlay.png"), url("images/bg.jpg");
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url("../../images/woodgrain1.jpg");
         background-size: 100px 100px, cover;
         background-repeat: repeat, no-repeat;
         background-attachment: scroll, scroll;
@@ -3567,6 +3574,10 @@ body.is-preload #banner footer {
         width: 100%;
     }
 
+    #footer .inner > .states {
+        text-align: right;
+    }
+
     #footer .copyright {
         padding: 3em 1.5em 1em 1.5em;
     }
@@ -3580,6 +3591,10 @@ body.is-preload #banner footer {
 
     #footer .inner > :first-child {
         margin-top: 0;
+    }
+
+    #footer .inner > .states {
+        text-align: left;
     }
 }
 

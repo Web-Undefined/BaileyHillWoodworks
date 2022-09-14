@@ -3520,6 +3520,11 @@ body.is-preload #banner footer {
     padding: 1rem 0;
 }
 
+#banner {
+    border-radius: 1em;
+    overflow: hidden;
+}
+
 @media screen and (max-width: 1680px) {
     #footer .inner {
         padding: 4.5em 0 2.5em 0;
@@ -3565,6 +3570,9 @@ body.is-preload #banner footer {
 }
 
 @media screen and (max-width: 736px) {
+    #banner {
+        border-radius: 0;
+    }
     #footer {
         background-color: #2d3339;
     }

@@ -188,9 +188,19 @@ html {
 }
 
 body {
+    /* background-color: rgb(230, 230, 230); */
+    /* background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 1) 50%,
+        rgba(245, 245, 245, 1) 100%
+    ); */
+    /* background-image: url("images/overlay.png"),
+        url("../../images/whiteTexture.jpg"); */
+    /* background-image: url("images/overlay.png");
+    background-size: 100px 100px, 100% auto; */
     background-color: #6a707c;
-    background-image: url("images/overlay.png"),
-        url("../../images/deepGreen.jfif");
+    background-image: url(images/overlay.png), url(../../images/bg.jpg);
     background-size: 100px 100px, 100% auto;
     background-repeat: repeat, repeat;
     background-attachment: scroll, scroll;
@@ -3260,8 +3270,8 @@ body.is-preload #banner footer {
 
     .contact-form {
         padding: 1em;
-        background-image: url("images/overlay.png"),
-            url("../../images/deepGreen.jfif");
+        /* background-image: url("images/overlay.png"),
+            url("../../images/deepGreen.jfif"); */
     }
 }
 
@@ -3477,6 +3487,22 @@ body.is-preload #banner footer {
     }
 }
 
+@media screen and (min-width: 736px) {
+    .black {
+        color: black;
+    }
+    .black::after {
+        background-color: black;
+    }
+    .black-button {
+        color: black !important;
+        box-shadow: inset 0 0 0 1px black;
+    }
+    .black-button:hover {
+        color: darkgrey !important;
+    }
+}
+
 /* Footer */
 
 #footer {
@@ -3523,6 +3549,10 @@ body.is-preload #banner footer {
 #banner {
     border-radius: 1em;
     overflow: hidden;
+}
+
+.gallery-footer {
+    padding: 2em 0;
 }
 
 @media screen and (max-width: 1680px) {

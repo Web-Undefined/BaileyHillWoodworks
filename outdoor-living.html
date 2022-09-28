@@ -7,6 +7,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<link rel="shortcut icon" type="image/png" href="images/hammer.png" />
+
+	<!-- nanogallery2 -->
+	<link href="assets/css/nanogallery2.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body class="is-preload">
@@ -42,39 +45,41 @@
 			<!-- Content -->
 			<section id="content" class="default">
 				<header class="major">
-					<h2>Contact Us</h2>
-					<p>Call/text/email owner Kevin O’Keefe today to arrange an appointment or discuss project ideas, we
-						are also glad to give advice in how to tackle a project yourself.</p>
+					<h2>Outdoor Living Gallery</h2>
+					<!-- <p>Carpentry and woodworking services without boundaries</p> -->
 				</header>
+				<div class="content">
+					<div class="container " id="gallery">
+						<div id="nanogallery2" data-nanogallery2='{
+							  "thumbnailHeight":  ' auto', "thumbnailWidth" : 'auto' }'>
+							<a href="images/outdoor1.jpg" data-ngThumb="images/outdoor1.jpg"></a>
+							<a href="images/outdoor2.jpg" data-ngThumb="images/outdoor2.jpg"></a>
+							<a href="images/outdoor3.jpg" data-ngThumb="images/outdoor3.jpg"></a>
+							<a href="images/outdoor4.JPEG" data-ngThumb="images/outdoor4.JPEG"></a>
+
+							<a href="images/outdoor5.JPEG" data-ngThumb="images/outdoor5.JPEG"></a>
+							<a href="images/outdoor6.JPEG" data-ngThumb="images/outdoor6.JPEG"></a>
+							<a href="images/outdoor7.JPEG" data-ngThumb="images/outdoor7.JPEG"></a>
+							<a href="images/outdoor8.JPEG" data-ngThumb="images/outdoor8.JPEG"></a>
+
+							<a href="images/outdoor9.png" data-ngThumb="images/outdoor9.png"></a>
+							<a href="images/outdoor10.JPEG" data-ngThumb="images/outdoor10.JPEG"></a>
+							<a href="images/outdoor11.JPEG" data-ngThumb="images/outdoor11.JPEG"></a>
+							<a href="images/outdoor12.JPEG" data-ngThumb="images/outdoor12.JPEG"></a>
+
+							<a href="images/outdoor13.JPEG" data-ngThumb="images/outdoor13.JPEG"></a>
+
+						</div>
+					</div>
+				</div>
+				<footer class="gallery-footer">
+					<ul class="actions special">
+						<li style="padding: 1em 1em;"><a href="gallery.html" class="button large">View Full Gallery</a>
+						</li>
+					</ul>
+				</footer>
 			</section>
 
-			<!-- CTA -->
-			<section id="six" class="wrapper style1 contact-form">
-				<div class="inner">
-					<form method="post" action="https://formspree.io/f/moqbjgjj">
-						<div class="row gtr-uniform">
-							<div class="col-6 col-12-xsmall">
-								<input type="text" name="name" id="name" value="" placeholder="Name" />
-							</div>
-							<div class="col-6 col-12-xsmall">
-								<input type="email" name="email" id="email" value="" placeholder="Email" />
-							</div>
-							<!-- Break -->
-							<div class="col-12">
-								<textarea name="message" id="message" placeholder="Enter your message"
-									rows="6"></textarea>
-							</div>
-							<!-- Break -->
-							<div class="col-12">
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" class="primary" /></li>
-									<li><input type="reset" value="Reset" class="primary" /></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</div>
-			</section>
 		</div>
 
 		<!-- Footer -->
@@ -127,6 +132,7 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.nanogallery2.min.js"></script>
 
 </body>
 
